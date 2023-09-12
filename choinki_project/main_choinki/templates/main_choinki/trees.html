@@ -1,0 +1,39 @@
+{% extends "main_choinki/index.html" %}
+
+{% block title %}Zamówienie{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center" id="login-border">
+    <div class="container-login">
+        <form method="POST">
+        {% csrf_token %}
+        <h1>Dane dotyczące drzew</h1>
+        <p>Wypełnij poniższe pola:</p>
+        <hr>
+        <div class="d-flex justify-content-center">
+            <div class="d-column">
+            {{ treeform.management_form }}
+            {% for form in treeform %}
+                <div class="tree-form-list">
+                    <div class="d-flex tree-form">       
+                        <div class="col-2">
+                            <label class="typ">Rodzaj:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group">
+                                <b>{{form.type}}</b>
+                                {{form.localization}}
+                                {{form.prize}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+            <button type="submit" class="nextbtn">Dalej</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{%endblock%}

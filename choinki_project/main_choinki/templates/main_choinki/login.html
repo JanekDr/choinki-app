@@ -1,0 +1,25 @@
+{% extends "main_choinki/index.html" %}
+{% block title%}Logowanie{%endblock%}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+  <div class="container d-flex justify-content-center" id="login-border">
+    <div class="container-login">
+        <h1>Zarejestruj się</h1>
+        <p>Wypełnij poniższe pola:</p>
+        <hr>
+        <label for="username"><b>Nazwa</b></label>
+        <input type="text" placeholder="Podaj swoją nazwę" name="username" id="username" required>
+        <label for="password"><b>Hasło</b></label>
+        <input type="password" placeholder="Enter Password" name="password" id="password" required>
+        <hr>
+        <button type="submit" class="registerbtn">Potwierdź</button>
+        <div class="container signin">
+            <p>Nie masz jeszcze konta? <a href="/registration/">Zarejestruj się</a>.</p>
+        </div>
+    </div>
+  </div>
+</form>
+{% endblock%}

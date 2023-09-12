@@ -1,0 +1,202 @@
+.nav{
+  position:absolute;
+  z-index: 1;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  position: fixed;
+  top:0;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a, #dropdownbutton{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 14px;
+  margin-top: 4px;
+  text-decoration: none;
+}
+
+
+#pipe{
+  color:white;
+  font-size:1.125rem;
+}
+
+li a.right {
+    float:right
+}
+
+li a:hover {
+    background-color: #111;
+    color:white;
+  }
+
+#info {
+  
+  position:relative;
+  padding: 4rem;
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+}
+
+#demo{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#oferta {
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+}
+
+#swierk_zdj {
+  margin-left: 20%;
+}
+
+.oferta-tekst{
+  text-align:center;
+  padding-bottom: 1rem;
+}
+
+p.contact {
+  font-size:1.25em;
+}
+
+#submitButton {
+  width:35%;
+}
+
+#card-success {
+  width:20rem;
+  margin: auto;
+
+}
+
+.container {
+  padding: 16px;
+}
+
+.typ{
+  
+  padding: 15px;
+}
+
+
+/* Full-width input fields */
+input[type=text], input[type=password], select {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, select option {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.registerbtn, .nextbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.removebtn {
+  background-color: #a12c24;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover, .nextbtn:hover {
+  opacity:1;
+}
+
+.nextbtn{
+  background-color:rgb(7, 187, 241);
+}
+
+a {
+  color: dodgerblue;
+}
+
+
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+.container-register, .container-login{
+  width: 75%;
+  margin-top:30px;
+  margin-bottom:30px;
+}
+
+#register-border, #login-border{
+  margin-top:72px;
+  border-radius: 30px;
+  -webkit-box-shadow: -3px 5px 15px -11px rgba(66, 68, 90, 1);
+  -moz-box-shadow: -3px 5px 15px -11px rgba(66, 68, 90, 1);
+  box-shadow: -3px 5px 15px -11px rgba(66, 68, 90, 1);
+}
+
+#user-dropdown{
+  position: absolute;
+  display: block;
+  z-index: 2;
+  color:red;
+  height: 100px;
+  
+}
+
+#col-name, #col-surname, #treetype,#treelocalization, #treeprize, #treemorebtn{
+  margin:auto;
+}
+
+input.quantity{
+  width: 25%;
+  margin-inline: 20px;
+
+}
+
+button.dalej, label.tree-quantity-label{
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+}
+
+button.dalej, button.dalej:hover{
+  color:white;
+}
+
+.tree-details{
+  display: flex;
+  margin:auto;
+}

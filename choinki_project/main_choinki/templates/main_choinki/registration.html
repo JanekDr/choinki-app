@@ -1,0 +1,34 @@
+{% extends "main_choinki/index.html" %}
+{% block title%}Rejestracja{%endblock%}
+
+{% block content %}
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="container d-flex justify-content-center" id="register-border">
+        <div class="container-register">
+            <h1>Zarejestruj się</h1>
+            <p>Wypełnij poniższe pola:</p>
+            <hr>
+
+            <label for="username"><b>Nazwa</b></label>
+            <input type="text" placeholder="Podaj swoją nazwę" name="username" id="username" required>
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" id="email">
+
+            <label for="psw"><b>Hasło</b></label>
+            <input type="password" placeholder="Enter Password" name="password1" id="psw" required>
+
+            <label for="psw-repeat"><b>Powtórz hasło</b></label>
+            <input type="password" placeholder="Repeat Password" name="password2" id="psw-repeat" required>
+            <hr>
+
+            <button type="submit" class="registerbtn">Potwierdź</button>
+            <div class="container signin">
+                <p>Masz już konto? <a href="/login">Zaloguj się</a>.</p>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock%}

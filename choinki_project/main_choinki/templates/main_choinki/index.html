@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}{%endblock%}</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% load auth_extras %}
+  
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50">
+  <div class="nav">
+    <ul class="navbarr align-middle">
+      <li><a class="logo" href="/">Home</a></li>
+      {% if user.is_authenticated %}
+        <li style="float:right">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownbutton">
+              {{user.username}}
+            </button>
+              <div class="dropdown" id="user-dropdown">
+                <ul class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Wyloguj się
+                  </a>            
+                </ul>
+              </div>
+            </div>
+        </li>
+      {% else %}
+        <li style="float:right"><a href="login">Zaloguj się</a></li>
+      {% endif %}
+      <li style="float:right"><a id="pipe">|</a></li>
+      {% if request.user|has_group:"pracownicy" %}
+        <li style="float:right"><a href="/customer" class="button"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256" 
+          style="fill:#000000;
+          pointer-events: none;" >
+          <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M25,2c-12.6907,0 -23,10.3093 -23,23c0,12.69071 10.3093,23 23,23c12.69071,0 23,-10.30929 23,-23c0,-12.6907 -10.30929,-23 -23,-23zM25,4c11.60982,0 21,9.39018 21,21c0,11.60982 -9.39018,21 -21,21c-11.60982,0 -21,-9.39018 -21,-21c0,-11.60982 9.39018,-21 21,-21zM24,13v11h-11v2h11v11h2v-11h11v-2h-11v-11z"></path></g></g>
+          </svg></a>
+        </li>
+      {% endif %}
+      <li style="float:right"><a href="/#oferta">Oferta</a></li>
+      <li style="float:right"><a href="/#kontakt">Kontakt</a></li>
+      <li style="float:right"><a href="/#onas">O nas</a></li>
+    </ul>
+  </div>
+  {% block content %}{% endblock %} 
+
+</body>
+</html> 

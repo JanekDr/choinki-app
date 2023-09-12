@@ -1,0 +1,25 @@
+{% extends 'main_choinki/index.html' %}
+
+{%block title%}Email sent{%endblock%}
+
+{% block content %}
+<section class="success">
+
+        <div class="d-flex flex-column justify-content-center">
+            <h1>Sukces!</h1>
+            <p>Wiadomość email została poprawnie wysłana. Wróć na stronę główną klikają przycisk poniżej.</p>
+            <div id='card' class="animated fadeIn">
+                <div class="card" id="card-success">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="location.href = '/'" class="btn btn-info">Powrót</button>
+        </div>
+    
+</section>   
+
+{% endblock %}
+

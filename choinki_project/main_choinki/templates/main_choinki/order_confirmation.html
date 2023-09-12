@@ -1,0 +1,47 @@
+{% extends "main_choinki/index.html" %}
+{%block title%}Potwierdzenie zamówienia{%endblock%}
+{%block content%}
+<div class="container d-flex justify-content-center" id="login-border">
+    <div class="container-login">
+        <h1>Potwierdzenie zamówienia</h1>
+        <br>
+        <div class="d-flex justify-content-center">
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <hr>
+                    <b>Rodzaj</b>
+                    <b>Lokalizacja</b>
+                    <b>Cena</b>
+                    <br>
+                    <br>
+                </div>
+                {% for tree in trees %}
+                <div class="d-flex justify-content-between">
+                    <p>{{tree.get_type_display}}</p>
+                    <p>{{tree.localization}}</p>
+                    <p>{{tree.prize}}</p>
+                </div>
+                <hr>
+                {% endfor %}    
+            </div>
+        </div>
+        <h2>Informacje o kliencie</h2>
+        <br>
+        <div class="d-flex justify-content-center">
+            <div class="col">
+                <div class="d-flex justify-content-center">
+                    <b>Imię</b>
+                    <p>{{customer.first_name}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-center">
+                    <b>Nazwisko</b>
+                    <p>{{customer.last_name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
