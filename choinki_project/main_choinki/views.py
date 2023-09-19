@@ -1,7 +1,7 @@
 from django.http import BadHeaderError, HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
-from .forms import ContactForm, NewUserForm, CustomerForm, TreeForm, TreeFormsQuantity
+from .forms import ContactForm, NewUserForm, CustomerForm, TreeForm, TreeFormsQuantity, OrderForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.forms import formset_factory
@@ -106,12 +106,33 @@ def order(request, customerid, treesids):
     treesids = treesids.split('_')
     treesids = list(map(int, treesids))
     ordered_trees = []
+    prices = []
 
     for id in treesids:
         tree = Tree.objects.get(id=id)
+        prices.append(tree.price)
         ordered_trees.append(tree)
+
+    totalcost = sum(prices)
     customer = Customer.objects.get(id=customerid)
 
+    if request.method == "POST":
+        orderform = OrderForm(request.POST)
+        if orderform.is_valid():
+            
+            order = orderform.save(commit=False)
+            customer = Customer.objects.get(id=customerid)
+            order.customer = customer
+            order.save()
+            for id in treesids:
+                tree = Tree.objects.get(id=id)
+                order.tree.add(tree)
+
+            return redirect('customer')
+    else:
+        orderform = OrderForm()
     
     return render(request, 'main_choinki/order_confirmation.html', {'trees':ordered_trees,
-                                                                    'customer':customer})
+                                                                    'customer':customer,
+                                                                    'totalcost':totalcost,
+                                                                    'orderform': orderform})

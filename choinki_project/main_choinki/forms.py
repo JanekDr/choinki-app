@@ -31,8 +31,14 @@ class CustomerForm(ModelForm):
 class TreeForm(ModelForm):
     class Meta:
         model = models.Tree
-        fields = ['type', 'localization', 'prize']
+        fields = ['type', 'localization', 'price']
 
 
 class TreeFormsQuantity(forms.Form):
     quantity = forms.IntegerField(min_value=1, max_value=50)
+
+
+class OrderForm(ModelForm):
+    class Meta:
+        model = models.Order
+        fields = ['status']

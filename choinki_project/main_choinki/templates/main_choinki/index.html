@@ -38,7 +38,7 @@
         <li style="float:right"><a href="login">Zaloguj się</a></li>
       {% endif %}
       <li style="float:right"><a id="pipe">|</a></li>
-      {% if request.user|has_group:"pracownicy" %}
+      {% if request.user|has_group:"pracownicy" or user.is_staff %}
         <li style="float:right"><a href="/customer" class="button"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256" 
           style="fill:#000000;
           pointer-events: none;" >

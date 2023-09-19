@@ -2,12 +2,13 @@
 {%block title%}Potwierdzenie zamówienia{%endblock%}
 {%block content%}
 <div class="container d-flex justify-content-center" id="login-border">
-    <div class="container-login">
-        <h1>Potwierdzenie zamówienia</h1>
+    <div class="container-login ">
+        <h1>Podsumowanie zamówienia</h1>
         <br>
+        <hr>
         <div class="d-flex justify-content-center">
             <div class="row">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between order-details">
                     <hr>
                     <b>Rodzaj</b>
                     <b>Lokalizacja</b>
@@ -16,31 +17,64 @@
                     <br>
                 </div>
                 {% for tree in trees %}
-                <div class="d-flex justify-content-between">
-                    <p>{{tree.get_type_display}}</p>
+                <div class="d-flex justify-content-between order-details">
+                    <p>{{tree.get_type_display|capfirst}}</p>
                     <p>{{tree.localization}}</p>
-                    <p>{{tree.prize}}</p>
+                    <p>{{tree.price}}</p>
                 </div>
                 <hr>
-                {% endfor %}    
+                {% endfor %}
+                <div class="d-flex justify-content-center total-cost">
+                    <h3>Suma: <span class="badge bg-secondary">{{totalcost}}</span></h3>
+
+                </div>
             </div>
         </div>
         <h2>Informacje o kliencie</h2>
         <br>
-        <div class="d-flex justify-content-center">
-            <div class="col">
-                <div class="d-flex justify-content-center">
-                    <b>Imię</b>
-                    <p>{{customer.first_name}}</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="d-flex justify-content-center">
-                    <b>Nazwisko</b>
-                    <p>{{customer.last_name}}</p>
-                </div>
+        <hr>
+        <div class="d-flex justify-content-center order-details">        
+            <div class="d-column namediv">
+                <b>Imię</b>
+                <p>{{customer.first_name}}</p>
+            </div>        
+            <div class="d-column namediv">
+                <b>Nazwisko</b>
+                <p>{{customer.last_name}}</p>
             </div>
         </div>
+        <br>
+        <div class="d-flex justify-content-center order-details">
+            <div class="d-column namediv">
+                <b>Numer telefonu</b>
+                {% if customer.phone_number %}
+                    <p>{{customer.phone_number}}</p>
+                {% else %}
+                    <p>Brak</p>
+                {% endif %}
+            </div>
+            <div class="d-column namediv">
+                <b>Miejsce zamieszkania</b>
+                {% if customer.home %}
+                    <p>{{customer.home}}</p>
+                {% else %}
+                    <p>Brak</p>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <h2>Potwierdź zamówienie</h2>
+        <br>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="order-status">
+                <b>Status zamowienia:</b>
+                <p>{{orderform.status}}</p>
+                <button type="submit" class="registerbtn">Potwierdź</button>
+            </div>
+            <small class="d-flex justify-content-center">Dane zostaną zapisane po kliknięciu w przycisk.</small>
+        </form>
     </div>
 </div>
 

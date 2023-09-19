@@ -200,3 +200,23 @@ button.dalej, button.dalej:hover{
   display: flex;
   margin:auto;
 }
+
+.namediv{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-details{
+  font-size: larger;
+}
+
+.total-cost{
+  margin-bottom: 2rem;
+}
+
+.order-status{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: larger;
+}

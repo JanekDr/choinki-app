@@ -20,11 +20,11 @@ class Tree(models.Model):
     )
     type = models.CharField(max_length=2, choices=TYPES_OF_TREES, default=TYPES_OF_TREES[0][0])
     localization = models.CharField(max_length=300)
-    prize = models.IntegerField()
+    price = models.IntegerField()
 
 
     def __str__(self) -> str:
-        return self.type + " " + self.localization + " " + str(self.prize)
+        return self.type + " " + self.localization + " " + str(self.price)
 
 
 class Order(models.Model):
@@ -35,7 +35,7 @@ class Order(models.Model):
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     tree = models.ManyToManyField(Tree)
-    status = models.CharField(max_length=120, choices=STATUS)
+    status = models.CharField(max_length=120, choices=STATUS, default=STATUS[0][0])
     date = models.DateField(auto_now_add=True)
 
   
