@@ -7,6 +7,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=120)
     phone_number = models.CharField(max_length=9, blank=True, null=True)
     home = models.CharField(max_length=240, blank=True, null=False)
+    date = models.DateField(auto_now_add=True)
 
 
     def __str__(self) -> str:
@@ -38,6 +39,9 @@ class Order(models.Model):
     status = models.CharField(max_length=120, choices=STATUS, default=STATUS[0][0])
     date = models.DateField(auto_now_add=True)
 
-  
+
     def __str__(self) -> str:
         return "Zamowienie nr. " + str(self.id)
+
+    def get_total_cost(self) -> int:          
+        return sum(tree.price for tree in self.tree.all())

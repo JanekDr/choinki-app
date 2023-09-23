@@ -26,6 +26,13 @@ li a, #dropdownbutton{
   text-decoration: none;
 }
 
+.dropdown-section{
+  margin-right: 10px;
+}
+
+.dropdown-menu{
+ width: 180px !important;
+}
 
 #pipe{
   color:white;
@@ -201,12 +208,12 @@ button.dalej, button.dalej:hover{
   margin:auto;
 }
 
-.namediv{
+.namediv,.summary-container-sales, .summary-container-income, .summary-container-customers{
   margin-left: auto;
   margin-right: auto;
 }
 
-.order-details{
+.order-details, .summary-container-sales, .summary-container-income, .summary-container-customers{
   font-size: larger;
 }
 
@@ -219,4 +226,57 @@ button.dalej, button.dalej:hover{
   margin-left: auto;
   margin-right: auto;
   font-size: larger;
+}
+
+.summary-container-sales, .summary-container-income, .summary-container-customers{
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 25px;
+  width: 360px;
+  height: 180px;
+  border-width: 4px;
+  border-radius: 25px;
+  color:white;
+  -webkit-box-shadow: -14px 13px 60px -33px rgba(26, 26, 27, 1);
+  -moz-box-shadow: -14px 13px 60px -33px rgba(26, 26, 27, 1);
+  box-shadow: -14px 13px 60px -33px rgba(26, 26, 27, 1);
+}
+
+.summary-container-sales{
+  background-color:#77d4b3;
+}
+
+.summary-container-income{
+  background-color:#23a6de;
+}
+
+.summary-container-customers{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #f55353;
+  width: 70%;
+}
+
+.dashboard{
+  background-color: rgb(250, 250, 250);
+}
+
+.order-info{
+  display: inline-flex;
+}
+
+tr{
+  margin-top:10px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 200px;
+}
+
+.orders_count_container, .total_cost_container{
+  margin-top:1rem;
+  font-size: 64px;
+}
+
+.bi{
+  margin-right: 4rem;
 }

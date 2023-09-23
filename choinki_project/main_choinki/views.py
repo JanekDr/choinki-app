@@ -5,7 +5,8 @@ from .forms import ContactForm, NewUserForm, CustomerForm, TreeForm, TreeFormsQu
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.forms import formset_factory
-from .models import Tree, Customer
+from .models import Tree, Customer, Order
+from datetime import date, timedelta
 
 
 
@@ -136,3 +137,77 @@ def order(request, customerid, treesids):
                                                                     'customer':customer,
                                                                     'totalcost':totalcost,
                                                                     'orderform': orderform})
+
+
+def dashboard(request):
+
+    last_orders = Order.objects.all().order_by('-id')[:5]
+    orders = Order.objects.filter(date=date.today())
+    orders_ids = (order.id for order in orders)
+    orders_counter = orders.count()
+
+    today = date.today()
+    year = today.year
+    month = today.month
+
+    customers_counter = Customer.objects.filter(date__year=year).count()
+    total_cost = 0
+
+    for id in orders_ids:
+        order = Order.objects.get(id=id) 
+        total_cost += order.get_total_cost()
+
+    if request.method == "GET":
+        if 'sales_range' in request.GET:
+            sales_range = request.GET.get('sales_range')
+            if sales_range == "week":
+                orders_counter = Order.objects.filter(date__range=[today-timedelta(days=7), today]).count()
+            elif sales_range == "month":
+                orders_counter = Order.objects.filter(date__month=month).count()
+            elif sales_range == "year":
+                orders_counter = Order.objects.filter(date__year=year).count()
+            elif sales_range == "all_time":
+                orders_counter = Order.objects.all().count()
+            else:
+                orders_counter = Order.objects.filter(date=today).count()
+
+        elif 'income_range' in request.GET:
+            income_range = request.GET.get('income_range')
+            if income_range == "week":
+                orders = Order.objects.filter(date__range=[today-timedelta(days=7), today])
+            elif income_range == "month":
+                orders = Order.objects.filter(date__month=month)
+            elif income_range == "year":
+                orders = Order.objects.filter(date__year=year)
+            elif income_range == "all_time":
+                orders = Order.objects.all()
+            else:
+                orders = Order.objects.filter(date=date.day())
+
+            total_cost = sum(order.get_total_cost() for order in orders)
+
+        elif 'customers_range' in request.GET:
+            customers_range = request.GET.get('customers_range')
+            if customers_range == "week":
+                customers_counter = Customer.objects.filter(date__range=[today - timedelta(days=7), today]).count()
+            elif customers_range == "month":
+                customers_counter = Customer.objects.filter(date__month=month).count()
+            elif customers_range == "year":
+                customers_counter = Customer.objects.filter(date__year=year).count()
+            elif customers_range == "all_time":
+                customers_counter = Customer.objects.all().count()
+            else:
+                customers_counter = Customer.objects.filter(date=today).count()
+
+        elif 'orders_range' in request.GET:
+            orders_range = request.GET.get('orders_range')
+            if orders_range == 'all':
+                last_orders = last_orders = Order.objects.all()
+            else:
+                last_orders = Order.objects.all().order_by('-id')[:int(orders_range)]
+
+    return render(request, 'main_choinki/dashboard.html', {"last_orders":last_orders,
+                                                           "orders_count": orders_counter,
+                                                           "total_cost": total_cost,
+                                                           "customers_count": customers_counter
+                                                           }) 
