@@ -100,7 +100,7 @@ p.contact {
 
 
 /* Full-width input fields */
-input[type=text], input[type=password], select {
+input[type=text], input[type=password], input[type=date], select{
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -109,7 +109,7 @@ input[type=text], input[type=password], select {
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus, select option {
+input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, select option,.input-group-text {
   background-color: #ddd;
   outline: none;
 }
@@ -279,4 +279,14 @@ tr{
 
 .bi{
   margin-right: 4rem;
+}
+
+.status{
+  align-items: center;
+  width: 60%;
+  margin-left: 10px;
+}
+
+.status-container{
+  margin-bottom: 10px;
 }

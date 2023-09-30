@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.forms import formset_factory
 from .models import Tree, Customer, Order
 from datetime import date, timedelta
-
+from django.db.models import Q
 
 
 # Create your views here.
@@ -210,4 +210,34 @@ def dashboard(request):
                                                            "orders_count": orders_counter,
                                                            "total_cost": total_cost,
                                                            "customers_count": customers_counter
-                                                           }) 
+                                                           })
+
+def search(request):
+    orders = Order.objects.all()
+    if request.method == "GET":
+
+        all_params = []
+        if request.GET.get('first_name') != "":
+            parameter = Q(customer__first_name=request.GET.get('first_name'))
+            all_params.append(parameter)
+
+        if request.GET.get('last_name') != "":
+            parameter = Q(customer__last_name=request.GET.get('last_name'))
+            all_params.append(parameter)
+
+        if request.GET.get('since') != "":
+            parameter = Q(date__gte=request.GET.get('since'))
+            all_params.append(parameter)
+
+        if request.GET.get('until') != "":
+            parameter = Q(date__lte=request.GET.get('until'))
+            all_params.append(parameter)
+
+        if request.GET.get('status') != None:
+            parameter = Q(status=request.GET.get('status'))
+            all_params.append(parameter)
+ 
+        orders = Order.objects.filter(*all_params)
+ 
+
+    return render(request, 'main_choinki/search.html', {"orders": orders})
