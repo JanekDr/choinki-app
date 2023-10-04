@@ -1,0 +1,54 @@
+{% extends 'main_choinki\index.html' %}
+{% block title %}Szczegółowe informacje{% endblock %}
+{% block content %}
+
+<div class="container d-flex justify-content-center dashboard" id="login-border">
+    <div class="container-login">
+        <h1 class="d-flex justify-content-center">{{order}}</h1>
+        <div class="customer-info-container">
+            <h3>Dane kupującego</h3>
+            <div class="customer-inf">
+                <p>Imię: {{order.customer.first_name}}</p>
+                <p>Nazwisko: {{order.customer.last_name}}</p>
+                {% if order.customer.phone_number == None %}
+                    <p>Numer telefonu: Brak</p>
+                {% else %}
+                    <p>Numer telefonu: {{order.customer.phone_number}}</p>
+                {% endif %}
+                {% if order.customer.home|length < 2 %}
+                    <p>Miejsce zamieszkania: Brak</p>
+                {% else %}
+                    <p>Miejsce zamieszkania: {{order.customer.home }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="tree-info-container">
+            <h4>Dane o drzewach</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Rodzaj</th>
+                        <th>Lokalizacja</th>
+                        <th>Cena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tree in order.tree.all %}
+                        <tr>
+                            <td>{{tree.get_type_display}}</td>
+                            <td>{{tree.localization}}</td>
+                            <td>{{tree.price}}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">W sumie</td>
+                        <td>{{order.get_total_cost}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
