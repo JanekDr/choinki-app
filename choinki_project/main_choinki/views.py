@@ -1,6 +1,8 @@
 from django.http import BadHeaderError, HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from choinki_project.decorators import group_required
 from .forms import ContactForm, NewUserForm, CustomerForm, TreeForm, TreeFormsQuantity, OrderForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -60,6 +62,7 @@ def user_login(request):
     return render(request, 'main_choinki/login.html',{})
 
 
+@login_required(login_url="/login")
 def customer(request):
     if request.method == 'POST':
         customerform = CustomerForm(request.POST)
@@ -80,6 +83,7 @@ def customer(request):
         })
 
 
+@login_required(login_url="/login")
 def tree(request, customerid, quantity):
     TreeFormset = formset_factory(TreeForm, extra=quantity)
 
@@ -102,6 +106,7 @@ def tree(request, customerid, quantity):
     return render(request, 'main_choinki/trees.html',{'treeform': treeformset})
 
 
+@login_required(login_url="/login")
 def order(request, customerid, treesids):
     customerid = customerid
     treesids = treesids.split('_')
@@ -139,6 +144,7 @@ def order(request, customerid, treesids):
                                                                     'orderform': orderform})
 
 
+@login_required(login_url="/login")
 def dashboard(request):
 
     last_orders = Order.objects.all().order_by('-id')[:5]
@@ -212,32 +218,42 @@ def dashboard(request):
                                                            "customers_count": customers_counter
                                                            })
 
+
+@login_required(login_url="/login")
 def search(request):
-    orders = Order.objects.all()
+    orders = ''
     if request.method == "GET":
 
+        condition = lambda var: True if request.GET.get(var) != "" and request.GET.get(var) != None else False
+
         all_params = []
-        if request.GET.get('first_name') != "":
+        if request.GET.get('first_name') != '':
             parameter = Q(customer__first_name=request.GET.get('first_name'))
             all_params.append(parameter)
 
-        if request.GET.get('last_name') != "":
+        if condition('last_name'):
             parameter = Q(customer__last_name=request.GET.get('last_name'))
             all_params.append(parameter)
 
-        if request.GET.get('since') != "":
+        if condition('since'):
             parameter = Q(date__gte=request.GET.get('since'))
             all_params.append(parameter)
 
-        if request.GET.get('until') != "":
+        if condition('until'):
             parameter = Q(date__lte=request.GET.get('until'))
             all_params.append(parameter)
 
         if request.GET.get('status') != None:
             parameter = Q(status=request.GET.get('status'))
             all_params.append(parameter)
- 
-        orders = Order.objects.filter(*all_params)
- 
+
+
+        if all_params != []:
+            orders = Order.objects.filter(*all_params)
 
     return render(request, 'main_choinki/search.html', {"orders": orders})
+
+
+def order_info(request, pk):
+    order = Order.objects.get(id=pk)
+    return render(request, 'main_choinki/order_info.html', {'order':order})
