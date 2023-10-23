@@ -48,6 +48,13 @@
                 </tbody>
             </table>
         </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center order-info-btns">
+                <button class="btn btn-danger btn-del" name="delete">Usuń</button>
+                <button class="btn btn-success btn-edit" name="edit">Edytuj</button>
+            </div>
+        </form>
     </div>
 </div>
 

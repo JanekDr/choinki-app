@@ -208,7 +208,7 @@ button.dalej, button.dalej:hover{
   margin:auto;
 }
 
-.namediv,.summary-container-sales, .summary-container-income, .summary-container-customers{
+.namediv,.summary-container-sales, .summary-container-income, .summary-container-customers, .btn-del, .btn-edit{
   margin-left: auto;
   margin-right: auto;
 }
@@ -295,3 +295,12 @@ td, thead{
 .customer-info-container{
   margin-top:20px;
 }
+
+.order-info-btns{
+  margin-top:25px;
+}
+/*.redirect-a_{*/
+/*  width: 74px;*/
+/*  height:38px;*/
+/*  background-color: #0dcaf0;*/
+/*}*/

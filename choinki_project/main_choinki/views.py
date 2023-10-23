@@ -2,7 +2,7 @@ from django.http import BadHeaderError, HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
-from choinki_project.decorators import group_required
+# from choinki_project.decorators import group_required
 from .forms import ContactForm, NewUserForm, CustomerForm, TreeForm, TreeFormsQuantity, OrderForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -247,7 +247,6 @@ def search(request):
             parameter = Q(status=request.GET.get('status'))
             all_params.append(parameter)
 
-
         if all_params != []:
             orders = Order.objects.filter(*all_params)
 
@@ -256,4 +255,10 @@ def search(request):
 
 def order_info(request, pk):
     order = Order.objects.get(id=pk)
+    if request.method == "POST":
+        if request.POST.get('delete'):
+            print('delete')
+        elif request.POST.get('edit'):
+            print('edit')
+
     return render(request, 'main_choinki/order_info.html', {'order':order})
