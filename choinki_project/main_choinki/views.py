@@ -260,5 +260,5 @@ def order_info(request, pk):
             print('delete')
         elif request.POST.get('edit'):
             print('edit')
-
+        sadsadfsdfsdf
     return render(request, 'main_choinki/order_info.html', {'order':order})
