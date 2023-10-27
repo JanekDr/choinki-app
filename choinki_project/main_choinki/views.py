@@ -255,10 +255,20 @@ def search(request):
 
 def order_info(request, pk):
     order = Order.objects.get(id=pk)
+    customer_id = order.customer.id
+    customer_form = CustomerForm(customer_id)
+
     if request.method == "POST":
-        if request.POST.get('delete'):
-            print('delete')
-        elif request.POST.get('edit'):
-            print('edit')
-        sadsadfsdfsdf
-    return render(request, 'main_choinki/order_info.html', {'order':order})
+        if request.POST.get('customer-edit'):
+            customer_form = CustomerForm(customer_id, request.POST)
+            print(customer_form)
+            if customer_form.is_valid():
+                customer_form.save()
+                #redirect to customer update view
+        elif request.POST.get('trees-edit'):
+            print('tree-edit')
+        elif request.POST.get('delete'):
+            print('post-delete')
+        
+    return render(request, 'main_choinki/order_info.html', {'order':order,
+                                                            'customer_form': customer_form,})

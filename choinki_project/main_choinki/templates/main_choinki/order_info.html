@@ -4,9 +4,11 @@
 
 <div class="container d-flex justify-content-center dashboard" id="login-border">
     <div class="container-login">
+        <form method="POST">
+        {% csrf_token %}
         <h1 class="d-flex justify-content-center">{{order}}</h1>
-        <div class="customer-info-container">
-            <h3>Dane kupującego</h3>
+        <h3>Dane kupującego</h3>
+        <div class="d-flex justify-content-between align-items-center customer-info-container">
             <div class="customer-inf">
                 <p>Imię: {{order.customer.first_name}}</p>
                 <p>Nazwisko: {{order.customer.last_name}}</p>
@@ -21,41 +23,46 @@
                     <p>Miejsce zamieszkania: {{order.customer.home }}</p>
                 {% endif %}
             </div>
+            <div>
+                <button class="btn btn-success btn-edit" name="customer-edit" value="customer-edit">Edytuj</button>
+            </div>
         </div>
         <hr>
         <div class="tree-info-container">
             <h4>Dane o drzewach</h4>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Rodzaj</th>
-                        <th>Lokalizacja</th>
-                        <th>Cena</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for tree in order.tree.all %}
+            <div class="d-flex align-items-center">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <td>{{tree.get_type_display}}</td>
-                            <td>{{tree.localization}}</td>
-                            <td>{{tree.price}}</td>
+                            <th>Rodzaj</th>
+                            <th>Lokalizacja</th>
+                            <th>Cena</th>
                         </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="2">W sumie</td>
-                        <td>{{order.get_total_cost}}</td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for tree in order.tree.all %}
+                            <tr>
+                                <td>{{tree.get_type_display}}</td>
+                                <td>{{tree.localization}}</td>
+                                <td>{{tree.price}}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="2">W sumie</td>
+                            <td>{{order.get_total_cost}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="edit-btn-div">
+                    <button class="btn btn-success btn-edit" name="trees-edit" value="trees-edit">Edytuj</button>
+                </div>
+            </div>
+        <hr>
         </div>
-        <form method="POST">
-            {% csrf_token %}
             <div class="d-flex justify-content-center order-info-btns">
-                <button class="btn btn-danger btn-del" name="delete">Usuń</button>
-                <button class="btn btn-success btn-edit" name="edit">Edytuj</button>
+                <button class="btn btn-danger btn-del" name="delete" value="delete">Usuń</button>
             </div>
         </form>
     </div>
 </div>
-
 {% endblock %}
