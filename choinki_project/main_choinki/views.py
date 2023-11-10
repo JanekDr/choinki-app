@@ -1,5 +1,5 @@
 from django.http import BadHeaderError, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 # from choinki_project.decorators import group_required
@@ -63,7 +63,7 @@ def user_login(request):
 
 
 @login_required(login_url="/login")
-def customer(request):
+def add_customer(request):
     if request.method == 'POST':
         customerform = CustomerForm(request.POST)
         treeformsquantity = TreeFormsQuantity(request.POST)
@@ -77,7 +77,7 @@ def customer(request):
         customerform = CustomerForm()
         treeformsquantity = TreeFormsQuantity()
         
-    return render(request, 'main_choinki/customer.html',{
+    return render(request, 'main_choinki/add_customer.html',{
         'customerform': customerform,
         'treeformsquantity': treeformsquantity
         })
@@ -134,7 +134,7 @@ def order(request, customerid, treesids):
                 tree = Tree.objects.get(id=id)
                 order.tree.add(tree)
 
-            return redirect('customer')
+            return redirect('add_customer')
     else:
         orderform = OrderForm()
     
@@ -243,7 +243,11 @@ def search(request):
             parameter = Q(date__lte=request.GET.get('until'))
             all_params.append(parameter)
 
-        if request.GET.get('status') != None:
+        if condition('home'):
+            parameter = Q(customer__home=request.GET.get('home'))
+            all_params.append(parameter)
+
+        if condition('status'):
             parameter = Q(status=request.GET.get('status'))
             all_params.append(parameter)
 
@@ -252,23 +256,37 @@ def search(request):
 
     return render(request, 'main_choinki/search.html', {"orders": orders})
 
-
+@login_required(login_url="/login")
 def order_info(request, pk):
     order = Order.objects.get(id=pk)
-    customer_id = order.customer.id
-    customer_form = CustomerForm(customer_id)
 
     if request.method == "POST":
         if request.POST.get('customer-edit'):
-            customer_form = CustomerForm(customer_id, request.POST)
-            print(customer_form)
-            if customer_form.is_valid():
-                customer_form.save()
+            customer_id = order.customer.id
+            print(customer_id)
+            print(Customer.objects.get(id = customer_id))
+            return redirect('edit_customer', pk = customer_id)
                 #redirect to customer update view
         elif request.POST.get('trees-edit'):
             print('tree-edit')
         elif request.POST.get('delete'):
             print('post-delete')
         
-    return render(request, 'main_choinki/order_info.html', {'order':order,
-                                                            'customer_form': customer_form,})
+    return render(request, 'main_choinki/order_info.html', {'order':order})
+
+
+@login_required(login_url="/login")
+def edit_customer(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+
+    if request.method == "POST":
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            order = Order.objects.get(id=pk)
+            return render(request, 'main_choinki/order_info.html', {'order':order})
+    else:
+        form = CustomerForm(instance = customer)
+
+    return render(request, 'main_choinki/edit_customer.html', {"form": form,
+                                                               "customer": customer})
