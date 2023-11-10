@@ -1,0 +1,33 @@
+{% extends "main_choinki/index.html" %}
+
+{% block title %}Edycja klienta{% endblock %}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  <div class="container d-flex justify-content-center" id="login-border">
+    <div class="container-login">
+        <h1>Dane kupującego</h1>
+        <p>Wypełnij poniższe pola:</p>
+        <hr>
+        <div class="d-flex">
+            <div class="d-column" id="col-name">
+                <label for="firstname"><b>Imię</b></label>
+                <input type="text" name="first_name" id="first-name" placeholder="Podaj imię" required>
+            </div>
+            <div class="d-column" id="col-surname">
+                <label for="lastname"><b>Nazwisko</b></label>
+                <input type="text" name="last_name" id="last-name" placeholder="Podaj nazwisko" required>
+            </div>
+        </div>
+        <label for="telephone"><b>Telefon (opcjonalnie)</b></label>
+        <input type="text" name="phone_number" id="telephone" placeholder="Podaj numer telefonu">
+        <label for="home"><b>Miejsce zamieszkania (opcjonalnie)</b></label>
+        <input type="text" name="home" id="home" placeholder="Podaj miejsce zamieszkania">
+        <hr>
+        <button type="submit" class="nextbtn dalej">Zmień</button>
+    </div>
+  </div>
+</form>
+
+{%endblock%}
