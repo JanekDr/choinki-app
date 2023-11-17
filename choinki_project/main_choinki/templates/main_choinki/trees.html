@@ -15,24 +15,26 @@
             {{ treeform.management_form }}
             {% for form in treeform %}
                 <div class="tree-form-list">
-                    <div class="d-flex tree-form">       
-                        <div class="col-2">
-                            <label class="typ">Rodzaj:</label>
+                    <div class="d-column tree-form">
+                        <div class="d-block">
+                            <label class="tree-label"><strong>Rodzaj:</strong></label>
+                            <b class="tree-type">{{form.type}}</b>
                         </div>
-                        <div class="col-4">
-                            <div class="input-group">
-                                <b>{{form.type}}</b>
-                                {{form.localization}}
-                                {{form.price}}
-                            </div>
+                        <div class="d-block">
+                            <label class="tree-label"><strong>Lokalizacja:</strong></label>
+                            <b class="tree-type">{{form.localization}}</b>
+                        </div>
+                        <div class="d-block">
+                            <label class="tree-label"><strong>Cena:</strong></label>
+                            <b class="tree-type">{{form.price}}</b>
                         </div>
                     </div>
                 </div>
-                <hr>
             {% endfor %}
-            <button type="submit" class="nextbtn">Dalej</button>
             </div>
         </div>
+        <hr>
+        <button type="submit" class="nextbtn">Dalej</button>
         </form>
     </div>
 </div>

@@ -2,19 +2,18 @@ from django.http import BadHeaderError, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
-# from choinki_project.decorators import group_required
 from .forms import ContactForm, NewUserForm, CustomerForm, TreeForm, TreeFormsQuantity, OrderForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.forms import formset_factory
+from django.forms import formset_factory, modelformset_factory
 from .models import Tree, Customer, Order
 from datetime import date, timedelta
 from django.db.models import Q
+from django.urls import reverse
 
 
 # Create your views here.
 def index(request):
-
     #contactform handling
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -134,7 +133,7 @@ def order(request, customerid, treesids):
                 tree = Tree.objects.get(id=id)
                 order.tree.add(tree)
 
-            return redirect('add_customer')
+            return redirect('dashboard')
     else:
         orderform = OrderForm()
     
@@ -263,14 +262,12 @@ def order_info(request, pk):
     if request.method == "POST":
         if request.POST.get('customer-edit'):
             customer_id = order.customer.id
-            print(customer_id)
-            print(Customer.objects.get(id = customer_id))
             return redirect('edit_customer', pk = customer_id)
-                #redirect to customer update view
         elif request.POST.get('trees-edit'):
-            print('tree-edit')
+            return redirect('edit_trees', pk=pk)
         elif request.POST.get('delete'):
-            print('post-delete')
+            order.delete()
+            return redirect('dashboard')
         
     return render(request, 'main_choinki/order_info.html', {'order':order})
 
@@ -278,7 +275,6 @@ def order_info(request, pk):
 @login_required(login_url="/login")
 def edit_customer(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
-
     if request.method == "POST":
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
@@ -290,3 +286,27 @@ def edit_customer(request, pk):
 
     return render(request, 'main_choinki/edit_customer.html', {"form": form,
                                                                "customer": customer})
+
+@login_required(login_url="/login")
+def edit_trees(request, pk):
+    #mozna tutaj dodac dodatkowe drzewka za pomoca parametru extra w modelformset_factory (zrob GET request templacie)
+    CustomerTreesFormset = modelformset_factory(Tree, extra=0, form=TreeForm)
+    order = Order.objects.get(id=pk)
+    trees = order.tree.all()
+    trees_ids = []
+    for i in range(len(trees)):
+        tree = trees[i]
+        trees_ids.append(tree.id)
+
+    if request.method == "POST":
+        formset = CustomerTreesFormset(request.POST)
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.save()
+            print('gites')
+            return redirect(reverse('order-info',args=[order.id]))
+    else:
+        formset = CustomerTreesFormset(queryset=trees)
+
+    return render(request, 'main_choinki/edit_trees.html', {"formset": formset})

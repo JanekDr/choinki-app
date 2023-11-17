@@ -123,8 +123,7 @@
                                 {% else %}
                                     <td><span class="badge bg-warning">{{order.get_status_display}}</span></td>
                                 {% endif %}
-                                    <a href="{% url 'order-info' 1%}">asdjaskdjak</a>
-                                <td><a class="redirect-a" href="{% url 'order-info' order.id%}">Więcej</a></td>
+                                <td><a class="redirect-a btn btn-sm btn-primary" href="{% url 'order-info' order.id%}">Więcej</a></td>
                             </tr>
                         {% endfor %}   
                     </tbody>                 

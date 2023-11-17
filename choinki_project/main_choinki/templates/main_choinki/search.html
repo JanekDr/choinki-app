@@ -72,7 +72,7 @@
                         {% else %}
                             <td><span class="badge bg-warning">{{order.get_status_display}}</span></td>
                         {% endif %}                       
-                        <td><a href="{% url 'order-info' order.id%}"><button class="btn btn-info">Więcej</button></a></td>
+                        <td><a href="{% url 'order-info' order.id%}"><button class="btn btn-sm btn-primary">Więcej</button></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

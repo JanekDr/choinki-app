@@ -49,7 +49,8 @@ li a:hover {
   }
 
 #info {
-  
+  /*margin-left: 20px;*/
+  /*margin-right: 20px;*/
   position:relative;
   padding: 4rem;
   border-top: 2px solid grey;
@@ -94,13 +95,12 @@ p.contact {
 }
 
 .typ{
-  
   padding: 15px;
 }
 
 
 /* Full-width input fields */
-input[type=text], input[type=password], input[type=date], .status{
+input[type=text], input[type=password], input[type=date], input[type=number], .status, select{
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -109,7 +109,7 @@ input[type=text], input[type=password], input[type=date], .status{
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, select option,.input-group-text {
+input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, select, select option,.input-group-text {
   background-color: #ddd;
   outline: none;
 }
@@ -193,7 +193,7 @@ input.quantity{
 
 }
 
-button.dalej, label.tree-quantity-label{
+button.dalej, label.tree-quantity-label, .tree-type{
   padding: 15px;
   margin: 5px 0 22px 0;
   display: inline-block;
@@ -302,4 +302,14 @@ td, thead{
 
 .edit-btn-div{
   margin-left: 30px;
+}
+
+.tree-label{
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}
+
+.tree-type{
+  margin:0;
 }
