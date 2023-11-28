@@ -19,7 +19,7 @@
       {% if user.is_authenticated %}
         <li style="float:right">
           <div class="dropdown-section">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownbutton">
+            <button class="btn dropdown-toggle dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownbutton">
               {{user.username}}
             </button>
               <div class="dropdown" id="user-dropdown">
@@ -39,7 +39,6 @@
       {% else %}
         <li style="float:right"><a href="{% url 'login' %}">Zaloguj się</a></li>
       {% endif %}
-      <li style="float:right"><a id="pipe">|</a></li>
       {% if request.user|has_group:"pracownicy" or user.is_staff %}
         <li style="float:right"><a href="/add_customer" class="button"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256"
           style="fill:#000000;
@@ -48,9 +47,11 @@
           </svg></a>
         </li>
       {% endif %}
-      <li style="float:right"><a href="/#oferta">Oferta</a></li>
-      <li style="float:right"><a href="/#kontakt">Kontakt</a></li>
-      <li style="float:right"><a href="/#onas">O nas</a></li>
+      <div class="nav-main-attributes">
+        <li ><a href="/#oferta">Oferta</a></li>
+        <li ><a href="/#kontakt">Kontakt</a></li>
+        <li ><a href="/#onas">O nas</a></li>
+      </div>
     </ul>
   </div>
   {% block content %}{% endblock %} 
