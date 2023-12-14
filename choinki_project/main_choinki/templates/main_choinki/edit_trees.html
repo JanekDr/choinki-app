@@ -30,7 +30,9 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                {% if formset|length != 1 %}
+                    <hr>
+                {% endif %}
             {% endfor %}
             </div>
         </div>

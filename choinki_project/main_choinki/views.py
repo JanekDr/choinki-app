@@ -187,9 +187,14 @@ def dashboard(request):
             elif income_range == "all_time":
                 orders = Order.objects.all()
             else:
-                orders = Order.objects.filter(date=date.day())
+                orders = Order.objects.filter(date=today).count()
 
-            total_cost = sum(order.get_total_cost() for order in orders)
+            # orders count can be 0 so its not iterable
+            try:
+                total_cost = sum(order.get_total_cost() for order in orders)
+            except:
+                total_cost = 0
+
 
         elif 'customers_range' in request.GET:
             customers_range = request.GET.get('customers_range')
@@ -274,12 +279,12 @@ def order_info(request, pk):
 
 @login_required(login_url="/login")
 def edit_customer(request, pk):
-    customer = get_object_or_404(Customer, pk=pk)
+    customer = Customer.objects.get(pk=pk)
     if request.method == "POST":
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
             form.save()
-            order = Order.objects.get(id=pk)
+            order = Order.objects.get(customer_id=pk)
             return render(request, 'main_choinki/order_info.html', {'order':order})
     else:
         form = CustomerForm(instance = customer)
@@ -300,6 +305,7 @@ def edit_trees(request, pk):
 
     if request.method == "POST":
         formset = CustomerTreesFormset(request.POST)
+        print("dupa")
         if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:

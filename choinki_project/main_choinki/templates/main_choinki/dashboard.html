@@ -7,7 +7,7 @@
         <h1>Panel administracyjny</h1>
         <hr>
         <form method="GET">
-        <div class="d-flex justify-content-center">
+        <div class="sales-income justify-content-center">
             <div class="column summary-container-sales">
                 <b class="float-start">Sprzedaże | dziś</b>
                 <div class="btn-group dropup float-end">
@@ -20,7 +20,7 @@
                             <button class="dropdown-item" name="sales_range" value="month" type="submit">miesiąc</button>
                             <button class="dropdown-item" name="sales_range" value="year" type="submit">rok</button>
                             <button class="dropdown-item" name="sales_range" value="all_time" type="submit">ciągle</button>
-                          </div>
+                        </div>
                 </div>
                 <br>
                 <div class="d-flex justify-content-center align-items-center orders_count_container">
@@ -37,15 +37,13 @@
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         więcej
                     </button>
-                    <!-- <form method="GET"> -->
                         <div class="dropdown-menu">
                             <button class="dropdown-item" name="income_range" value="day" type="submit">dziś</button>
                             <button class="dropdown-item" name="income_range" value="week" type="submit">tydzień</button>
                             <button class="dropdown-item" name="income_range" value="month" type="submit">miesiąc</button>
                             <button class="dropdown-item" name="income_range" value="year" type="submit">rok</button>
                             <button class="dropdown-item" name="income_range" value="all_time" type="submit">ciągle</button>
-                          </div>
-                    <!-- </form> -->
+                        </div>
                 </div>
                 <br>
                 <div class="d-flex justify-content-center align-items-center total_cost_container">
@@ -60,7 +58,7 @@
             </div>
         </div>
         <div class="justify-content-center">
-            <div class="summary-container-customers">
+            <div class="column summary-container-customers">
                 <b class="float-start">Klienci | ostatni rok</b>
                 <div class="btn-group dropup float-end">
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -102,7 +100,7 @@
                 </div>
             </div>
             <br>
-            <div>
+            <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>

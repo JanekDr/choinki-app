@@ -28,18 +28,14 @@
                     <input type="date" class="form-control" name="until" placeholder="Do">
                 </div>
             </div>
-            <div class="row">
+            <div class="row status-div">
                 <div class="col">
-                    <div class="row">
-                        <label for="status">Wybierz status</label>
-                    </div>
-                    <div class="row status-container">
-                        <select name="status" class="status">
-                            <option value="none" selected disabled hidden>Wybierz</option>
-                            <option value="1">zapłacone</option>
-                            <option value="2">zarezerwowane</option>
-                        </select>
-                    </div>
+                        <label class="label-status" for="status">Wybierz status</label>
+                    <select name="status" class="status">
+                        <option value="none" selected disabled hidden>Wybierz</option>
+                        <option value="1">zapłacone</option>
+                        <option value="2">zarezerwowane</option>
+                    </select>
                 </div>
                 <div class="col">
                     <label for="home">Miejsce zamieszkania</label>
@@ -50,33 +46,35 @@
         </form>
         <hr>
         {% if orders|length >= 1 %}
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th>Cena</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {%for order in orders%}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
                     <tr>
-                        <td>{{order.id}}</td>
-                        <td>{{order.customer.first_name}}</td>
-                        <td>{{order.customer.last_name}}</td>
-                        <td>{{order.get_total_cost}}</td>
-                        {% if order.status == "1" %}
-                            <td><span class="badge bg-success">{{order.get_status_display}}</span></td>
-                        {% else %}
-                            <td><span class="badge bg-warning">{{order.get_status_display}}</span></td>
-                        {% endif %}                       
-                        <td><a href="{% url 'order-info' order.id%}"><button class="btn btn-sm btn-primary">Więcej</button></a></td>
+                        <th>Nr.</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Cena</th>
+                        <th>Status</th>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {%for order in orders%}
+                        <tr>
+                            <td>{{order.id}}</td>
+                            <td>{{order.customer.first_name}}</td>
+                            <td>{{order.customer.last_name}}</td>
+                            <td>{{order.get_total_cost}}</td>
+                            {% if order.status == "1" %}
+                                <td><span class="badge bg-success">{{order.get_status_display}}</span></td>
+                            {% else %}
+                                <td><span class="badge bg-warning">{{order.get_status_display}}</span></td>
+                            {% endif %}
+                            <td><a href="{% url 'order-info' order.id%}"><button class="btn btn-sm btn-primary">Więcej</button></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% else %}
           <p>Tutaj pojawią się dane po wyszukaniu :)</p>
         {% endif %}

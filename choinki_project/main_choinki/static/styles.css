@@ -1,37 +1,37 @@
-.nav{
-  position:absolute;
-  z-index: 1;
+.navbar {
+    position:absolute ;
+    z-index: 1;
+    background-color: white;
+    position: fixed;
+    top:0;
+    width: 100%;
+    border-bottom: solid 1px #696969;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  color:grey;
-  position: fixed;
-  top:0;
-  width: 100%;
-  border-bottom: 0.125rem solid;
+.navbar a:hover{
+    border-radius:50% 20% / 10% 40%;;
+    background-color: #85a885;
 }
 
-ul, #info, #oferta {
+.dropdown-menu.show {
+    display: inline-grid !important;
+}
+
+.navbar-collapse{
+    flex-grow: 0 !important;
+    margin-right: 20px;
+}
+
+ul, #info, #oferta, .navbar-brand,.lokalizacja .dane-kontaktowe{
   font-family: 'Lato','Open Sans','Alegreya Sans',Verdana,Tahoma,"DejaVu Sans",sans-serif;
   font-size: 1.3rem;
 }
-.dropdown-btn{
-  background-color: #77d4b3;
-}
-li {
-  float: left;
+
+.lokalizacja{
+    font-size:1rem
 }
 
-#dropdownbutton{
-  font-family: 'Lato','Open Sans','Alegreya Sans',Verdana,Tahoma,"DejaVu Sans",sans-serif;
-  font-size: 1em;
-}
-
-li a, #dropdownbutton{
+li a{
   display: block;
   color: black;
   text-align: center;
@@ -40,21 +40,18 @@ li a, #dropdownbutton{
   text-decoration: none;
 }
 
-.dropdown-section{
-  margin-right: 10px;
+li a.plus{
+    padding:10px 14px;
+    margin-top: 0;
 }
 
-.dropdown-menu{
- width: 200px !important;
+.nav-link{
+    color:black !important;
 }
 
-.nav-main-attributes{
+.oferta-kontakt{
   margin-right:15px;
   float:right;
-}
-
-li a.right {
-    float:right
 }
 
 li a:hover {
@@ -63,7 +60,6 @@ li a:hover {
   }
 
 #info, #oferta{
-  margin-top: 40px;
   position:relative;
   padding: 4rem;
   color: azure;
@@ -95,16 +91,24 @@ li a:hover {
 }
 
 #swierk_zdj {
-  margin-left: 20%;
+    margin-left: 20%;
 }
 
-.oferta-tekst{
+.oferta{
   text-align:center;
   padding-bottom: 1rem;
 }
 
+.oferta-tekst {
+    margin-left:8%;
+    margin-right:20%;
+    font-size: 1.1rem;
+}
+
 p.contact {
-  font-size:1.25em;
+    font-size:1.25em;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #submitButton {
@@ -299,14 +303,6 @@ a {
   margin-right: 20px;
 }
 
-#user-dropdown{
-  position: absolute;
-  display: block;
-  z-index: 2;
-  color:red;
-  height: 100px;
-}
-
 #col-name, #col-surname, #treetype,#treelocalization, #treeprize, #treemorebtn{
   margin:auto;
 }
@@ -436,4 +432,76 @@ td, thead{
 
 .tree-type{
   margin:0;
+}
+
+.sales-income, .name-info, .lokalizacja{
+    display:flex;
+}
+
+.status{
+    margin-left:0;
+}
+
+.icon_home{
+    margin-left:20px;
+}
+
+a.author{
+    text-decoration: none;
+    color:white;
+}
+
+footer{
+    color:white;
+    height: 10%;
+}
+
+/*.lokalizacja{*/
+/*    margin-left:40px;*/
+/*}*/
+
+.adres, .telefon{
+    margin-bottom: 20px;
+}
+
+.dane-kontaktowe{
+    margin-left: 60px;
+    display:flex;
+}
+
+.lokalizacja{
+    margin-right: flex;
+}
+
+@media only screen and (max-width: 768px) {
+    #kontakt{
+        width: 90%;
+    }
+    .oferta-tekst {
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .summary-container-sales{
+        margin-bottom: 15px;
+    }
+    .summary-container-sales, .summary-container-income, .summary-container-customers{
+      width:80%
+    }
+    .status-div, .name-info, .sales-income{
+        display: block !important;
+    }
+    .lokalizacja, .dane-kontaktowe{
+        display: block;
+    }
+    .dane-kontaktowe{
+        margin-top:25px;
+        margin-right: 60px;
+    }
+    iframe {
+        width: 100% !important;
+        height: 500px;
+    }
+    .mapa{
+        padding:0;
+    }
 }

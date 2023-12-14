@@ -13,17 +13,17 @@
         <div class="d-flex">
             <div class="d-column" id="col-name">
                 <label for="firstname"><b>Imię</b></label>
-                <input type="text" name="first_name" id="first-name" placeholder="Podaj imię" required>
+                <input type="text" name="first_name" id="first-name" placeholder="Podaj imię" value="{{customer.first_name}}" required>
             </div>
             <div class="d-column" id="col-surname">
                 <label for="lastname"><b>Nazwisko</b></label>
-                <input type="text" name="last_name" id="last-name" placeholder="Podaj nazwisko" required>
+                <input type="text" name="last_name" id="last-name" placeholder="Podaj nazwisko" value="{{customer.last_name}}" required>
             </div>
         </div>
         <label for="telephone"><b>Telefon (opcjonalnie)</b></label>
-        <input type="text" name="phone_number" id="telephone" placeholder="Podaj numer telefonu">
+        <input type="text" name="phone_number" id="telephone" placeholder="Podaj numer telefonu" value="{{customer.phone_number}}">
         <label for="home"><b>Miejsce zamieszkania (opcjonalnie)</b></label>
-        <input type="text" name="home" id="home" placeholder="Podaj miejsce zamieszkania">
+        <input type="text" name="home" id="home" placeholder="Podaj miejsce zamieszkania" value="{{customer.home}}">
         <hr>
         <button type="submit" class="nextbtn dalej">Zmień</button>
     </div>
