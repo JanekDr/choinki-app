@@ -305,12 +305,10 @@ def edit_trees(request, pk):
 
     if request.method == "POST":
         formset = CustomerTreesFormset(request.POST)
-        print("dupa")
         if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.save()
-            print('gites')
             return redirect(reverse('order-info',args=[order.id]))
     else:
         formset = CustomerTreesFormset(queryset=trees)

@@ -21,7 +21,11 @@
             </div>
         </div>
         <label for="telephone"><b>Telefon (opcjonalnie)</b></label>
-        <input type="text" name="phone_number" id="telephone" placeholder="Podaj numer telefonu" value="{{customer.phone_number}}">
+        {% if customer.phone_number|length > 1 %}
+            <input type="text" name="phone_number" id="telephone" placeholder="Podaj numer telefonu" value="{{customer.phone_number}}">
+        {% else %}
+            <input type="text" name="phone_number" id="telephone" placeholder="Podaj numer telefonu">
+        {% endif %}
         <label for="home"><b>Miejsce zamieszkania (opcjonalnie)</b></label>
         <input type="text" name="home" id="home" placeholder="Podaj miejsce zamieszkania" value="{{customer.home}}">
         <hr>

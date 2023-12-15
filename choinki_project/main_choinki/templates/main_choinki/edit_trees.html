@@ -28,6 +28,9 @@
                             <label class="tree-label"><strong>Cena:</strong></label>
                             <b class="tree-type">{{form.price}}</b>
                         </div>
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
                     </div>
                 </div>
                 {% if formset|length != 1 %}
